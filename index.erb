@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<!-- vim: set filetype=html : -->
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Roku <%= ROKU_IP %></title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      html, body {
+        height: 100%;
+      }
+      a:link {
+        text-decoration:none;
+      }
+      body {
+        font-family: Sans-Serif;
+        margin: 0;
+      }
+      .wrap {
+        display: flex;
+        height: 100vh;
+      }
+      .main {
+        flex: 1;
+        display: flex;
+      }
+      .aside, .article {
+        overflow-y: scroll;
+        padding: 2em;
+      }
+      .aside {
+        width: 30em;
+        font-size: large;
+        display: flex;
+        flex-direction: column;
+        background-color: #f1f1f1;
+      }
+      .article {
+        display: flex;
+          flex: initial;
+        flex-direction: row;
+        flex-wrap: wrap;
+        background-color: white;
+        text-align: center;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class='wrap'>
+      <div class='main'>
+        <div class='aside'>
+          <% @keys.each do |key, value| %>
+            <div class='inner'>
+              <% if value.nil? %>
+                <br>
+              <% else %>
+              <a href="/keypress/<%= key %>">
+                <%= value %>
+              </a>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+
+        <div class='article'>
+        <% @apps.each do |key, value| %>
+          <div class='inner'>
+            <a href="/launch/<%= key %>">
+              <img src="/query/icon/<%= key %>" style="width:70%;">
+            </a>
+            <br>
+            <%= value %>
+          </div>
+        <% end %>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
